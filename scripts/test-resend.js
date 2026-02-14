@@ -1,37 +1,21 @@
 
-require('dotenv').config();
 const { Resend } = require('resend');
 
-async function main() {
-  console.log("Checking Resend configuration...");
-  if (!process.env.RESEND_API_KEY) {
-    console.error("ERROR: RESEND_API_KEY is not configured.");
-    return;
-  }
-  
-  console.log(`API Key found: ${process.env.RESEND_API_KEY.substring(0, 5)}...`);
+// 使用 .env 里的 Key
+const resend = new Resend('re_ZEftsDDp_PcRWxa3MneeX75RNMHPdEsqT');
 
-  const resend = new Resend(process.env.RESEND_API_KEY);
-
+(async function () {
+  console.log("Attempting to send email...");
   try {
-    console.log("Attempting to send test email via Resend...");
-    const { data, error } = await resend.emails.send({
+    const data = await resend.emails.send({
       from: 'Chloe Website <onboarding@resend.dev>',
-      to: 'delivered@resend.dev', // Default test email for Resend
-      subject: 'Test Email from Chloe Website',
-      html: '<strong>It works!</strong>',
+      to: 'fionalau1977@outlook.com', // 必须是这个 Verify 过的邮箱
+      subject: 'Manual Test Email',
+      html: '<h1>Hello Fiona!</h1><p>If you see this, Resend API is working perfectly.</p>'
     });
 
-    if (error) {
-      console.error("Resend Error:", error);
-      return;
-    }
-
-    console.log("Email sent successfully!");
-    console.log("ID:", data.id);
+    console.log("Response:", data);
   } catch (error) {
-    console.error("Unexpected error:", error);
+    console.error("Error:", error);
   }
-}
-
-main();
+})();

@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Resend } from 'resend';
 
-// Use a dummy key if env var is missing to prevent build errors
-const resend = new Resend(process.env.RESEND_API_KEY || 're_123456789');
+// Use a hardcoded key for debugging (TEMPORARY)
+const resend = new Resend('re_ZEftsDDp_PcRWxa3MneeX75RNMHPdEsqT');
 
 export async function PATCH(
   request: Request,
