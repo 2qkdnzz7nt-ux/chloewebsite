@@ -21,9 +21,9 @@ export async function PATCH(
     // Send email if status is changed to SHIPPED
     if (body.status === "SHIPPED" && order.customerEmail) {
       try {
-        console.log(`Sending shipping email to ${order.customerEmail}...`);
+        console.log(`Attempting to send shipping email to ${order.customerEmail}...`);
         
-        await resend.emails.send({
+        const { data, error } = await resend.emails.send({
           from: 'Chloe Website <onboarding@resend.dev>',
           to: order.customerEmail,
           subject: `Order Shipped #${order.id}`,
@@ -37,10 +37,15 @@ export async function PATCH(
             </div>
           `
         });
-        
-        console.log(`Shipping email sent to ${order.customerEmail}`);
+
+        if (error) {
+          console.error("Resend API returned error:", error);
+          // We don't throw here because we still want to return the updated order
+        } else {
+          console.log(`Shipping email sent successfully. ID: ${data?.id}`);
+        }
       } catch (emailError) {
-        console.error("Error sending shipping email:", emailError);
+        console.error("Error sending shipping email (exception):", emailError);
       }
     }
 

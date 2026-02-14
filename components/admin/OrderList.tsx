@@ -27,6 +27,7 @@ function TrackingUpdateForm({ order, updateOrder, updating }: { order: Order; up
     });
 
     setTrackingNumber("");
+    alert("Tracking number updated & Email sent (if valid)");
   };
 
   return (
