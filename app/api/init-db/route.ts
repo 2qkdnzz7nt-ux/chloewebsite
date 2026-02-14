@@ -16,7 +16,7 @@ export async function GET() {
         email,
         password: hashedPassword,
         name: "Chloe Huang",
-        role: "ADMIN",
+        // role: "ADMIN", // Removed because schema doesn't have role field
       },
     });
 
