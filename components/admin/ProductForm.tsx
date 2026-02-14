@@ -35,8 +35,8 @@ export default function ProductForm({ product }: { product?: any }) {
       }
       
       alert("Product saved successfully!");
-      router.push("/admin/products");
-      router.refresh();
+      // Force a full page reload to ensure data is fresh
+      window.location.href = "/admin/products";
     } catch (error) {
       console.error(error);
       alert("Failed to save product");

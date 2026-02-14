@@ -38,8 +38,8 @@ export default function PostForm({ post }: { post?: any }) {
       }
       
       alert("Post saved successfully!");
-      router.push("/admin/posts");
-      router.refresh();
+      // Force a full page reload to ensure data is fresh
+      window.location.href = "/admin/posts";
     } catch (error) {
       console.error(error);
       alert("Failed to save post");

@@ -49,10 +49,9 @@ export default function ProjectForm({ project }: { project?: any }) {
         });
       }
       
-      // Force a hard refresh or wait a bit
+      // Force a full page reload to ensure data is fresh
       alert("Project saved successfully!");
-      router.push("/admin/projects");
-      router.refresh(); 
+      window.location.href = "/admin/projects";
     } catch (error) {
       console.error(error);
       alert(`Failed to save project: ${error}`);
