@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { ChevronDown, ChevronUp, Package, Truck } from "lucide-react";
 
@@ -54,10 +54,14 @@ function TrackingUpdateForm({ order, updateOrder, updating }: { order: Order; up
   );
 }
 
-export default function OrderList({ initialOrders }: { initialOrders: Order[] }) {
+export default function OrderList({ initialOrders }: { initialOrders: any[] }) {
   const [orders, setOrders] = useState(initialOrders);
   const [expandedOrderId, setExpandedOrderId] = useState<string | null>(null);
   const [updating, setUpdating] = useState<string | null>(null);
+
+  useEffect(() => {
+    setOrders(initialOrders);
+  }, [initialOrders]);
 
   const toggleExpand = (id: string) => {
     setExpandedOrderId(expandedOrderId === id ? null : id);
