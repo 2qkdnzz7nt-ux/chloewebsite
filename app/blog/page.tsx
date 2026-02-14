@@ -25,6 +25,15 @@ export default async function Blog() {
             key={post.id}
             className="group border-b border-zinc-200 pb-12 dark:border-zinc-800"
           >
+            {post.imageUrl && (
+              <div className="mb-6 aspect-video w-full overflow-hidden rounded-lg">
+                <img
+                  src={post.imageUrl}
+                  alt={post.title}
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+            )}
             <div className="flex items-center gap-4 text-sm text-zinc-500 dark:text-zinc-400">
               <time>{post.createdAt.toLocaleDateString()}</time>
               <span>•</span>

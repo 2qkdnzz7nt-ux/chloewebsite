@@ -29,7 +29,16 @@ export default async function BlogPost({
       
       <article>
         <header className="mb-10">
-            <div className="flex items-center gap-4 text-sm text-zinc-500 dark:text-zinc-400">
+          {post.imageUrl && (
+            <div className="mb-8 overflow-hidden rounded-lg">
+              <img
+                src={post.imageUrl}
+                alt={post.title}
+                className="w-full object-cover"
+              />
+            </div>
+          )}
+          <div className="flex items-center gap-4 text-sm text-zinc-500 dark:text-zinc-400">
               <time>{post.createdAt.toLocaleDateString()}</time>
               <span>•</span>
               <span className="font-medium text-black dark:text-white">

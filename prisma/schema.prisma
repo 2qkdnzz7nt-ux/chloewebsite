@@ -23,6 +23,7 @@ model Post {
   slug      String   @unique
   excerpt   String
   content   String
+  imageUrl  String?
   category  String
   published Boolean  @default(false)
   createdAt DateTime @default(now())

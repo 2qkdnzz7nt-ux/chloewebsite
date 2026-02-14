@@ -18,6 +18,7 @@ export default function PostForm({ post }: { post?: any }) {
       excerpt: formData.get("excerpt"),
       content: formData.get("content"),
       category: formData.get("category"),
+      imageUrl: formData.get("imageUrl"),
       published: formData.get("published") === "on",
     };
 
@@ -79,6 +80,16 @@ export default function PostForm({ post }: { post?: any }) {
           name="category"
           defaultValue={post?.category}
           required
+          className="mt-1 block w-full rounded-md border border-zinc-300 px-3 py-2 shadow-sm focus:border-black focus:outline-none focus:ring-black dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
+          Image URL
+        </label>
+        <input
+          name="imageUrl"
+          defaultValue={post?.imageUrl}
           className="mt-1 block w-full rounded-md border border-zinc-300 px-3 py-2 shadow-sm focus:border-black focus:outline-none focus:ring-black dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
         />
       </div>
