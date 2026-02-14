@@ -7,18 +7,32 @@ export default function ProjectForm({ project }: { project?: any }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setLoading(true);
+  // async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  //   e.preventDefault();
+  //   console.log("Form submitted!"); // Debug log
+  //   setLoading(true);
 
-    const formData = new FormData(e.currentTarget);
-    const data = {
-      title: formData.get("title"),
-      description: formData.get("description"),
-      category: formData.get("category"),
-      imageUrl: formData.get("imageUrl"),
-      link: formData.get("link"),
-    };
+  //   const formData = new FormData(e.currentTarget);
+  //   const data = {
+  //     title: formData.get("title"),
+  //     description: formData.get("description"),
+  //     category: formData.get("category"),
+  //     imageUrl: formData.get("imageUrl"),
+  //     link: formData.get("link"),
+  //   };
+
+  async function handleManualSubmit() {
+    console.log("Manual submit clicked!");
+    setLoading(true);
+    
+    // Manually gather data since we are not using a form event
+    const title = (document.querySelector('input[name="title"]') as HTMLInputElement)?.value;
+    const description = (document.querySelector('textarea[name="description"]') as HTMLTextAreaElement)?.value;
+    const category = (document.querySelector('input[name="category"]') as HTMLInputElement)?.value;
+    const imageUrl = (document.querySelector('input[name="imageUrl"]') as HTMLInputElement)?.value;
+    const link = (document.querySelector('input[name="link"]') as HTMLInputElement)?.value;
+
+    const data = { title, description, category, imageUrl, link };
 
     try {
       if (project) {
@@ -38,14 +52,15 @@ export default function ProjectForm({ project }: { project?: any }) {
       router.refresh();
     } catch (error) {
       console.error(error);
-      alert("Failed to save project");
+      alert(`Failed to save project: ${error}`);
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
+    <div className="space-y-6 max-w-2xl">
+      {/* Inputs remain the same... */}
       <div>
         <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300">
           Title
@@ -101,12 +116,13 @@ export default function ProjectForm({ project }: { project?: any }) {
         />
       </div>
       <button
-        type="submit"
+        type="button"
+        onClick={handleManualSubmit}
         disabled={loading}
         className="rounded-md bg-black px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50 dark:bg-white dark:text-black dark:hover:bg-zinc-200"
       >
         {loading ? "Saving..." : "Save Project"}
       </button>
-    </form>
+    </div>
   );
 }
