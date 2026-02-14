@@ -2,6 +2,8 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 
+import { revalidatePath } from "next/cache";
+
 export async function DELETE(
   req: Request,
   { params }: { params: Promise<{ id: string }> }
@@ -17,6 +19,10 @@ export async function DELETE(
     await prisma.post.delete({
       where: { id },
     });
+    
+    revalidatePath('/blog');
+    revalidatePath('/admin/posts');
+    
     return NextResponse.json({ success: true });
   } catch (error) {
     return NextResponse.json({ error: "Failed to delete post" }, { status: 500 });
@@ -40,6 +46,11 @@ export async function PUT(
             where: { id },
             data: json,
         });
+        
+        revalidatePath('/blog');
+        revalidatePath(`/blog/${post.slug}`);
+        revalidatePath('/admin/posts');
+        
         return NextResponse.json(post);
     } catch (error) {
         return NextResponse.json({ error: "Failed to update post" }, { status: 500 });
