@@ -25,14 +25,18 @@ export default function PostForm({ post }: { post?: any }) {
       if (post) {
         await fetch(`/api/posts/${post.id}`, {
           method: "PUT",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
       } else {
         await fetch("/api/posts", {
           method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
       }
+      
+      alert("Post saved successfully!");
       router.push("/admin/posts");
       router.refresh();
     } catch (error) {

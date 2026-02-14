@@ -23,14 +23,18 @@ export default function ProductForm({ product }: { product?: any }) {
       if (product) {
         await fetch(`/api/products/${product.id}`, {
           method: "PUT",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
       } else {
         await fetch("/api/products", {
           method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
       }
+      
+      alert("Product saved successfully!");
       router.push("/admin/products");
       router.refresh();
     } catch (error) {
