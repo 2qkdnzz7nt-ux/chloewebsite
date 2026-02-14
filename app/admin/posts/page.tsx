@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { Plus, Pencil, Trash } from "lucide-react";
+import { unstable_noStore as noStore } from 'next/cache';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export default async function AdminPostsPage() {
+  noStore();
   const posts = await prisma.post.findMany({
     orderBy: { createdAt: "desc" },
   });
