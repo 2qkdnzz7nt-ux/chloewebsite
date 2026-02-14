@@ -24,11 +24,13 @@ export default function ProjectForm({ project }: { project?: any }) {
       if (project) {
         await fetch(`/api/projects/${project.id}`, {
           method: "PUT",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
       } else {
         await fetch("/api/projects", {
           method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
       }
