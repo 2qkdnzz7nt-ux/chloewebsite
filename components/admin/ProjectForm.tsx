@@ -35,18 +35,24 @@ export default function ProjectForm({ project }: { project?: any }) {
     const data = { title, description, category, imageUrl, link };
 
     try {
+      let response;
       if (project) {
-        await fetch(`/api/projects/${project.id}`, {
+        response = await fetch(`/api/projects/${project.id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
       } else {
-        await fetch("/api/projects", {
+        response = await fetch("/api/projects", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
+      }
+      
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error || "Failed to save project");
       }
       
       // Force a full page reload to ensure data is fresh

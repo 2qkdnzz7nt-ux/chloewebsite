@@ -44,7 +44,7 @@ export async function POST(req: Request) {
     
     return NextResponse.json(post);
   } catch (error) {
-    console.error("CREATE POST ERROR:", error); // Log the actual error
+    console.error("Failed to create post:", error);
     return NextResponse.json({ error: "Failed to create post", details: String(error) }, { status: 500 });
   }
 }

@@ -23,18 +23,24 @@ export default function PostForm({ post }: { post?: any }) {
     };
 
     try {
+      let response;
       if (post) {
-        await fetch(`/api/posts/${post.id}`, {
+        response = await fetch(`/api/posts/${post.id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
       } else {
-        await fetch("/api/posts", {
+        response = await fetch("/api/posts", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
+      }
+      
+      if (!response.ok) {
+        const err = await response.json().catch(() => ({}));
+        throw new Error(err.details || err.error || "Failed to save post");
       }
       
       alert("Post saved successfully!");
@@ -42,7 +48,7 @@ export default function PostForm({ post }: { post?: any }) {
       window.location.href = "/admin/posts";
     } catch (error) {
       console.error(error);
-      alert("Failed to save post");
+      alert(error instanceof Error ? error.message : "Failed to save post");
     } finally {
       setLoading(false);
     }

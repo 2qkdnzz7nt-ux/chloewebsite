@@ -53,6 +53,7 @@ export async function PUT(
         
         return NextResponse.json(post);
     } catch (error) {
-        return NextResponse.json({ error: "Failed to update post" }, { status: 500 });
+        console.error("Failed to update post:", error);
+        return NextResponse.json({ error: "Failed to update post", details: String(error) }, { status: 500 });
     }
 }

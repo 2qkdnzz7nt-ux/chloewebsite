@@ -20,18 +20,23 @@ export default function ProductForm({ product }: { product?: any }) {
     };
 
     try {
+      let response;
       if (product) {
-        await fetch(`/api/products/${product.id}`, {
+        response = await fetch(`/api/products/${product.id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
       } else {
-        await fetch("/api/products", {
+        response = await fetch("/api/products", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         });
+      }
+      
+      if (!response.ok) {
+        throw new Error("Failed to save product");
       }
       
       alert("Product saved successfully!");
