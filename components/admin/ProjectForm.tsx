@@ -48,8 +48,11 @@ export default function ProjectForm({ project }: { project?: any }) {
           body: JSON.stringify(data),
         });
       }
+      
+      // Force a hard refresh or wait a bit
+      alert("Project saved successfully!");
       router.push("/admin/projects");
-      router.refresh();
+      router.refresh(); 
     } catch (error) {
       console.error(error);
       alert(`Failed to save project: ${error}`);
