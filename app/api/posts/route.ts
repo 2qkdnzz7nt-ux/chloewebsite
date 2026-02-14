@@ -26,6 +26,7 @@ export async function POST(req: Request) {
     });
     return NextResponse.json(post);
   } catch (error) {
-    return NextResponse.json({ error: "Failed to create post" }, { status: 500 });
+    console.error("CREATE POST ERROR:", error); // Log the actual error
+    return NextResponse.json({ error: "Failed to create post", details: String(error) }, { status: 500 });
   }
 }
