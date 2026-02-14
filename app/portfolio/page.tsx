@@ -2,6 +2,9 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function Portfolio() {
   const projects = await prisma.project.findMany({
     orderBy: { createdAt: "desc" },

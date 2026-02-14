@@ -1,6 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import AddToCartButton from "@/components/AddToCartButton";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function Shop() {
   const products = await prisma.product.findMany({
     orderBy: { createdAt: "desc" },
