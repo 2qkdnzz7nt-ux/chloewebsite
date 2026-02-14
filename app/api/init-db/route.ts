@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 
 export async function GET() {
+  console.log("Starting DB init...");
   try {
     const email = "admin@chloehuang.net";
     const password = "password123";
