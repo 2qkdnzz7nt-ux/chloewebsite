@@ -93,19 +93,6 @@ export default async function AdminPostsPage() {
           </tbody>
         </table>
       </div>
-
-      {/* Debug Section - Only visible in Admin */}
-      <div className="mt-12 p-4 border-2 border-dashed border-yellow-500 rounded bg-yellow-50 dark:bg-yellow-900/20">
-        <h3 className="font-bold text-yellow-700 dark:text-yellow-400 mb-2">🔧 Debug Info (Database Raw View)</h3>
-        <p className="text-xs font-mono mb-2">Total Posts Found: {posts.length}</p>
-        <div className="space-y-1">
-          {posts.map(p => (
-            <div key={p.id} className="text-xs font-mono text-zinc-600 dark:text-zinc-400 border-b border-yellow-200 py-1">
-              [ID: {p.id}] [Slug: {p.slug}] [Title: {p.title}] [Published: {String(p.published)}] [Image: {p.imageUrl ? 'Yes' : 'No'}]
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
