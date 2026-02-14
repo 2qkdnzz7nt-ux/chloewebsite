@@ -40,7 +40,13 @@ export default function PostForm({ post }: { post?: any }) {
       
       if (!response.ok) {
         const err = await response.json().catch(() => ({}));
-        throw new Error(err.details || err.error || "Failed to save post");
+        const errorMessage = err.details || err.error || "Failed to save post";
+        
+        if (errorMessage.includes("Unique constraint failed")) {
+          throw new Error("Slug already exists. Please use a different Slug.");
+        }
+        
+        throw new Error(errorMessage);
       }
       
       alert("Post saved successfully!");
