@@ -53,7 +53,7 @@ export async function POST(req: Request) {
 
     try {
       await resend.emails.send({
-        from: 'Chloe Website <onboarding@resend.dev>',
+        from: 'Chloe Website <hello@mail.chloehuang.net>',
         to: email,
         subject: `Order Confirmation #${orderId}`,
         html: htmlContent

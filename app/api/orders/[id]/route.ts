@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Resend } from 'resend';
 
-// Use a hardcoded key for debugging (TEMPORARY)
-const resend = new Resend('re_ZEftsDDp_PcRWxa3MneeX75RNMHPdEsqT');
+// Use environment variable for security
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function PATCH(
   request: Request,
@@ -23,8 +23,9 @@ export async function PATCH(
       try {
         console.log(`Attempting to send shipping email to ${order.customerEmail}...`);
         
+        // Using subdomain for better deliverability and isolation
         const { data, error } = await resend.emails.send({
-          from: 'Chloe Website <onboarding@resend.dev>',
+          from: 'Chloe Website <hello@mail.chloehuang.net>', 
           to: order.customerEmail,
           subject: `Order Shipped #${order.id}`,
           html: `
