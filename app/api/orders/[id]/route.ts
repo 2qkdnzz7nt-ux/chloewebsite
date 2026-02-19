@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { Resend } from 'resend';
 
-// Use environment variable for security
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Use environment variable for security, fallback to empty string to prevent build error
+const resend = new Resend(process.env.RESEND_API_KEY || 're_123456789');
 
 export async function PATCH(
   request: Request,
