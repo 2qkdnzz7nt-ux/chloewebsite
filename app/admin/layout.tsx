@@ -1,4 +1,9 @@
 import AdminSidebar from "@/components/AdminSidebar";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Admin Dashboard - Chloe's Website",
+};
 
 export default function AdminLayout({
   children,
